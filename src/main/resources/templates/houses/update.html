@@ -31,7 +31,7 @@
             <div class="layui-input-block">
                 <select name="ownerId" id="ownerId"  lay-verify="required" lay-search="">
                     <option value="" >请选择</option>
-                    <option value=""th:each="ow:${ownerlist}" th:value="${ow.getId()}" th:text="${ow.getCustname()}" th:selected="${ow.getCustname()} eq ${owner.getCustname()}"></option>
+                    <option value=""  th:each="ow:${ownerlist}" th:value="${ow.getCustname()}"></option>
                 </select>
             </div>
         </div>
