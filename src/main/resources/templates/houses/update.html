@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../lib/layui-v2.5.5/css/layui.css" th:href="@{/../lib/layui-v2.5.5/css/layui.css}" media="all">
+    <link rel="stylesheet" href="../../css/public.css" th:href="@{/../../css/public.css}" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form layuimini-form">
+        <input type="text" name="id" id="id" th:value="${houses.getId()}" hidden>
+        <div class="layui-form-item">
+            <label class="layui-form-label required">房屋编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="numbers" lay-verify="required" lay-reqtext="房屋编号不能为空" placeholder="请输入房屋编号" value="" class="layui-input" th:value="${houses.getNumbers()}">
+            </div>
+        </div>
+        <!--房东信息管理-->
+        <div class="layui-form-item">
+            <label class="layui-form-label required">户主信息</label>
+            <div class="layui-input-block">
+                <select name="ownerId" id="ownerId"  lay-verify="required" lay-search="">
+                    <option value="" >请选择</option>
+                    <option value=""th:each="ow:${ownerlist}" th:value="${ow.getId()}" th:text="${ow.getCustname()}" th:selected="${ow.getCustname()} eq ${owner.getCustname()}"></option>
+                </select>
+            </div>
+        </div>
+        <!--房东信息结束-->
+
+        <!--省市县-->
+        <div class="layui-form-item" id="area-picker">
+            <label class="layui-form-label">所属地区</label>
+            <div class="layui-input-inline">
+                <select name="province" id="province" class="province-selector"  data-value="广东省"  lay-filter="province-1" >
+                    <option value="" th:text="${houses.getProvince()}">请选择省</option>
+
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="city"  id="city"  class="city-selector" data-value="深圳市" th:value="${houses.getCity()}" lay-filter="city-1">
+                    <option value="">请选择市</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="county" id="county" class="county-selector" data-value="龙岗区" lay-filter="county-1" th:value="${houses.getCounty()}">
+                    <option value="">请选择县/区</option>
+                </select>
+            </div>
+        </div>
+        <!--省市县end-->
+
+        <!--房屋图片-->
+        <div class="layui-form-item">
+            <input type="hidden" name="imgs" id="imgs">
+            <label class="layui-form-label required">房屋图片</label>
+            <div class="layui-upload-drag" id="test10">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="uploadDemoView">
+                    <hr>
+                    <img src=""  alt="上传成功后渲染" style="max-width: 196px">
+                </div>
+            </div>
+        </div>
+        <!--房屋图片end-->
+        <div class="layui-form-item">
+            <label class="layui-form-label required">房屋状态</label>
+            <div class="layui-input-block">
+                <input type="radio" name="status" value=2 title="未出租" th:checked="${houses.getStatus()!=null}?${houses.getStatus()==2}">
+                <input type="radio" name="status" value=1 title="出租中" th:checked="${houses.getStatus()!=null}?${houses.getStatus()==1}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">详细地址</label>
+            <div class="layui-input-block">
+                <input type="text" name="address"  class="layui-input" th:value="${houses.getAddress()}">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注信息</label>
+            <div class="layui-input-block">
+                <textarea name="remark" class="layui-textarea" placeholder="请输入备注信息" th:value="${houses.getRemarks()}"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../lib/layui-v2.5.5/layui.js" th:src="@{/../lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
+<script>
+    //配置插件目录
+    layui.config({
+        base: 'mods/'
+        , version: '1.0'
+    });
+
+    layui.use(['form','layarea','upload'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            layarea = layui.layarea,
+            upload = layui.upload,
+            $ = layui.$;
+
+        //渲染省市联动效果
+        layarea.render({
+            elem:'#area-picker',
+            change:function(res){
+                console.log(res);
+            }
+        });
+
+        // $.get('/findOwnerAll',{},function(data){
+        //     var list=data;
+        //
+        //     var select =document.getElementById("ownerId");
+        //     if(list!=null || list.size()>0){
+        //         for(var c in list){
+        //             var option=document.createElement("option");
+        //             option.setAttribute("value",list[c].id);
+        //             option.innerText=list[c].custname;
+        //             select.appendChild(option);
+        //         }
+        //     }
+        //
+        //
+        //     form.render();
+        // },"json");
+
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: 'fileUpload' //改成您自己的上传接口
+            ,done: function(res){
+                layer.msg('上传成功');
+                layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', "image/"+res.data);
+                $('#imgs').val("image/"+res.data)
+
+            }
+        });
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            var datas=data.field;//form单中的数据信息
+            //向后台发送数据提交添加
+            $.ajax({
+                url:"/updateHousesSubmit",
+                type:"POST",
+                contentType: 'application/json',
+                data: JSON.stringify(datas),
+                success:function(result){
+                    if(result.code==0){//如果成功
+                        layer.msg('更新成功',{
+                            icon:6,
+                            time:500
+                        },function(){
+
+                            parent.window.location.reload();
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+                        })
+                    }else{
+                        layer.msg(resut.msg);
+
+                    }
+                }
+            })
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>
