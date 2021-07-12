@@ -23,6 +23,8 @@ public class CustomerController {
     public String customerIndex(){
         return "customer/customerIndex";
     }
+    
+    //test
 
     @ResponseBody
     @RequestMapping("/queryCustomer")
