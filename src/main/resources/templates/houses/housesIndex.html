@@ -77,21 +77,24 @@
                 [
                     {type: "checkbox", width: 50},
                     {field: 'numbers', width: 80, title: '房屋编号'},
-                    {templet:'<div>{{d.owner.custname}}</div>', width: 100, title: '户主姓名'},                    {field: 'address', width: 80, title: '地址'},
+                    {templet:'<div>{{d.owner.custname}}</div>', width: 100, title: '房东姓名'},                    {field: 'address', width: 80, title: '地址'},
                     {field: 'province', width: 80, title: '省份'},
                     {field: 'city', width: 80, title: '市级'},
+
                     {field: 'county', width: 80, title: '地区'},
                     {
                         title: "房屋状态", minWidth: 120, templet: function (res) {
-                            if (res.status =='2') {
+                            if (res.status =='0') {
                                 return '<span class="layui-badge layui-bg-red">未租借</span>'
-                            } else
+                            } if((res.status =='1'))
                                 return '<span class="layui-badge layui-bg-green">已出租</span>'
 
 
                         }
                     },
-                    {field: 'remarks', width: 80, title: '备注', sort: true},
+                    {field: 'price', width: 80, title: '租价'},
+                    {field: 'remarks', width: 80, title: '备注'},
+
 
                     {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
                 ]
@@ -168,7 +171,7 @@
                             parent.layer.close(iframeIndex);
                         })
                     } else {
-                        layer.msg(resut.msg);
+                        layer.msg(result.msg);
                     }
                 }
             })

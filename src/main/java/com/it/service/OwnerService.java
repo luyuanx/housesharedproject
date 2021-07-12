@@ -9,7 +9,7 @@ public interface OwnerService {
 
 
     /**
-     * 分页查询户主信息
+     * 分页查询房东信息
      */
     PageInfo<Owner> queryOwnerAll(int page, int limit, Owner owner);
 

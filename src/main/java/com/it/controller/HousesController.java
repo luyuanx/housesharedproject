@@ -117,6 +117,7 @@ public class HousesController {
         model.addAttribute("owner", owner);
         PageInfo<Owner> pageInfo = ownerService.queryOwnerAll(1, 1, null);
         model.addAttribute("ownerlist", pageInfo.getList());
+        System.out.println(houses.getImgs());
 
 
         return "houses/update";
@@ -129,6 +130,7 @@ public class HousesController {
         if(i>0) return R.ok();
         else return R.fail("更新失败");
     }
+
 
     @ResponseBody
     @RequestMapping("/deleteHousesSubmit")

@@ -19,16 +19,16 @@
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
         <input type="text" name="id" id="id" th:value="${Owner.getId()}" hidden>
-        <label class="layui-form-label required">户主身份证号码</label>
+        <label class="layui-form-label required">房东身份证号码</label>
         <div class="layui-input-block">
-            <input type="text" name="identity" lay-verify="required" lay-reqtext="户主身份证号码" placeholder="请输入身份证号码" value="" class="layui-input" th:value="${Owner.getIdentity()}">
+            <input type="text" name="identity" lay-verify="required" lay-reqtext="房东身份证号码" placeholder="请输入身份证号码" value="" class="layui-input" th:value="${Owner.getIdentity()}">
 
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label required">户主姓名</label>
+        <label class="layui-form-label required">房东姓名</label>
         <div class="layui-input-block">
-            <input type="text" name="custname" lay-verify="required" lay-reqtext="户主姓名" placeholder="请输入姓名" value="" th:value="${Owner.getCustname()}" class="layui-input">
+            <input type="text" name="custname" lay-verify="required" lay-reqtext="房东姓名" placeholder="请输入姓名" value="" th:value="${Owner.getCustname()}" class="layui-input">
 
         </div>
     </div>
@@ -105,7 +105,7 @@
                             parent.layer.close(iframeIndex);
                         })
                     }else{
-                        layer.msg(resut.msg);
+                        layer.msg(result.msg);
 
                     }
                 }

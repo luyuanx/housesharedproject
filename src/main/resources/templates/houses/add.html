@@ -28,7 +28,7 @@
         </div>
         <!--房东信息管理-->
         <div class="layui-form-item">
-            <label class="layui-form-label required">户主信息</label>
+            <label class="layui-form-label required">房东信息</label>
             <div class="layui-input-block">
                 <select name="ownerId" id="ownerId" lay-verify="required" lay-search="">
                     <option value="">请选择</option>
@@ -77,6 +77,15 @@
             <div class="layui-input-block">
                 <input type="radio" name="status" value="0" title="未出租">
                 <input type="radio" name="status" value="1" title="出租中">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">租价信息</label>
+            <div class="layui-input-block">
+                <input type="text" name="price" id="price" lay-verify="required" lay-reqtext="房屋租价不能为空" placeholder="请输入租价编号" value="" class="layui-input">
+                <tip>填写房屋租价</tip>
             </div>
         </div>
 
@@ -174,7 +183,7 @@
                             parent.layer.close(iframeIndex);
                         })
                     }else{
-                        layer.msg(resut.msg);
+                        layer.msg(result.msg);
 
                     }
                 }

@@ -16,6 +16,10 @@ public interface HousesService {
 
     int deleteHousesSubmit(List<String> ids);
 
+    int updateHouse(Houses houses);
+
+
+
 
 
 }

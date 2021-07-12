@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it.mapper.RentalsMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.it.entity.Rentals">
+        <id column="id" property="id"/>
+        <result column="houses_id" property="housesId"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="money" property="money"/>
+        <result column="jzrq" property="jzrq"/>
+        <result column="jfr" property="jfr"/>
+        <result column="remarks" property="remarks"/>
+        <result column="djr" property="djr"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="xgr" property="xgr"/>
+        <result column="ksrq" property="ksrq"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <resultMap id="queryRentalsAllMap" type="com.it.entity.Rentals" extends="BaseResultMap">
+        <association property="customer" javaType="com.it.entity.Customer">
+            <id column="id" property="id"></id>
+            <result column="identity" property="identity"/>
+            <result column="custname" property="custname"/>
+            <result column="phone" property="phone"/>
+        </association>
+        <association property="houses" javaType="com.it.entity.Houses">
+            <id column="id" property="id"></id>
+            <result column="numbers" property="numbers"/>
+            <result column="address" property="address"/>
+        </association>
+
+    </resultMap>
+
+
+    <select id="queryAllRentals" parameterType="com.it.entity.Rentals" resultMap="queryRentalsAllMap">
+
+       SELECT
+            tals.* ,custname,cus.phone,cus.identity,hou.numbers,hou.address
+        FROM
+            rentals tals,
+            houses hou,
+            customer cus
+        WHERE
+            hou.id = tals.houses_id
+        AND hou.`status` = 1
+        AND cus.id = tals.customer_id
+
+
+    </select>
+
+
+</mapper>

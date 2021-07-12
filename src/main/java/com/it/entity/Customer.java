@@ -38,6 +38,11 @@ public class Customer implements Serializable {
 
     private String xgr;
 
+    public Customer(){}
+    public Customer(String custname){
+        this.custname = custname;
+    }
+
     public Integer getId() {
         return id;
     }

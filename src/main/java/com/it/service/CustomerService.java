@@ -17,6 +17,8 @@ public interface CustomerService {
 
     Customer customerUpdate(Integer id);
 
+    Customer queryCustomer(String id);
+
 
 
 }

@@ -47,6 +47,12 @@ public class Houses implements Serializable {
 
     private Owner owner;
 
+    public Houses(){}
+    public Houses(String numbers){
+        this.numbers = numbers;
+    }
+
+
     public Owner getOwner() {
         return owner;
     }
@@ -194,6 +200,8 @@ public class Houses implements Serializable {
     public void setArea(double area) {
         this.area = area;
     }
+
+
 
     @Override
     public String toString() {

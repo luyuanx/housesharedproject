@@ -54,5 +54,10 @@ public class HousesServiceImpl extends ServiceImpl<HousesMapper,Houses> implemen
         return count;
     }
 
+    @Override
+    public int updateHouse(Houses houses) {
+        return housesMapper.updateHouse(houses);
+    }
+
 
 }

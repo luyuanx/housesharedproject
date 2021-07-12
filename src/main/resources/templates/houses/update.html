@@ -27,11 +27,11 @@
         </div>
         <!--房东信息管理-->
         <div class="layui-form-item">
-            <label class="layui-form-label required">户主信息</label>
+            <label class="layui-form-label required">房东信息</label>
             <div class="layui-input-block">
                 <select name="ownerId" id="ownerId"  lay-verify="required" lay-search="">
-                    <option value="" >请选择</option>
-                    <option value=""  th:each="ow:${ownerlist}" th:value="${ow.getCustname()}" th:text="${ow.getCustname()}" ></option>
+                    <option value=""  ></option>
+
                 </select>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <label class="layui-form-label">所属地区</label>
             <div class="layui-input-inline">
                 <select name="province" id="province" class="province-selector"  data-value="广东省"  lay-filter="province-1" >
-                    <option value="" th:text="${houses.getProvince()}">请选择省</option>
+                    <option value="" th:selected="${houses.getProvince()}">请选择省</option>
 
                 </select>
             </div>
@@ -61,14 +61,14 @@
 
         <!--房屋图片-->
         <div class="layui-form-item">
-            <input type="hidden" name="imgs" id="imgs">
+            <input type="hidden" name="imgs" id="imgs" th:value="${houses.getImgs()}">
             <label class="layui-form-label required">房屋图片</label>
             <div class="layui-upload-drag" id="test10">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
+                <p>原图片，点击上传，或将文件拖拽到此处上传图片</p>
                 <div class="layui-hide" id="uploadDemoView">
                     <hr>
-                    <img src=""  alt="上传成功后渲染" style="max-width: 196px">
+                    <img   id="im" alt="上传成功后渲染" style="max-width: 196px">
                 </div>
             </div>
         </div>
@@ -78,6 +78,14 @@
             <div class="layui-input-block">
                 <input type="radio" name="status" value=2 title="未出租" th:checked="${houses.getStatus()!=null}?${houses.getStatus()==2}">
                 <input type="radio" name="status" value=1 title="出租中" th:checked="${houses.getStatus()!=null}?${houses.getStatus()==1}">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label required">租价信息</label>
+            <div class="layui-input-block">
+                <input type="text" name="price" id="price" lay-verify="required" lay-reqtext="房屋租价不能为空"  value="" th:value="${houses.getPrice()}" class="layui-input">
+                <tip>填写房屋租价</tip>
             </div>
         </div>
 
@@ -105,6 +113,26 @@
 </div>
 <script src="../lib/layui-v2.5.5/layui.js" th:src="@{/../lib/layui-v2.5.5/layui.js}" charset="utf-8"></script>
 <script>
+
+
+    layui.use(['jquery'],function (){
+        $ = layui.$;
+
+        let im = "[(${houses.getImgs()})]";
+           function images(){
+
+                   layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', im);
+           }
+            images();
+    })
+
+    function setSelected(){
+        var select = "[(${owner.getCustname()})]";
+        $("#ownerId").val(select);
+
+    }
+
+
     //配置插件目录
     layui.config({
         base: 'mods/'
@@ -118,6 +146,8 @@
             upload = layui.upload,
             $ = layui.$;
 
+
+
         //渲染省市联动效果
         layarea.render({
             elem:'#area-picker',
@@ -126,25 +156,34 @@
             }
         });
 
-        // $.get('/findOwnerAll',{},function(data){
-        //     var list=data;
-        //
-        //     var select =document.getElementById("ownerId");
-        //     if(list!=null || list.size()>0){
-        //         for(var c in list){
-        //             var option=document.createElement("option");
-        //             option.setAttribute("value",list[c].id);
-        //             option.innerText=list[c].custname;
-        //             select.appendChild(option);
-        //         }
-        //     }
-        //
-        //
-        //     form.render();
-        // },"json");
+        $.get('/findOwnerAll',{},function(data){
+            var list=data;
+
+
+            var select =document.getElementById("ownerId");
+            if(list!=null || list.size()>0){
+                for(var c in list){
+                    var option=document.createElement("option");
+                    option.setAttribute("value",list[c].id);
+                    option.innerText=list[c].custname;
+                    select.appendChild(option);
+                }
+
+
+            }
+
+            form.render('select');
+        },"json");
+
+        setSelected();
+
 
         //拖拽上传
+
+
+
         upload.render({
+
             elem: '#test10'
             ,url: 'fileUpload' //改成您自己的上传接口
             ,done: function(res){
@@ -176,7 +215,7 @@
                             parent.layer.close(iframeIndex);
                         })
                     }else{
-                        layer.msg(resut.msg);
+                        layer.msg(result.msg);
 
                     }
                 }

@@ -57,4 +57,9 @@ public class CustomerServiceImpl extends ServiceImpl<CustomerMapper,Customer> im
         return customers.get(0);
     }
 
+    @Override
+    public Customer queryCustomer(String id) {
+        return baseMapper.selectById(id);
+    }
+
 }

@@ -17,6 +17,7 @@
         <result column="city" property="city"/>
         <result column="county" property="county"/>
         <result column="sort" property="sort"/>
+        <result column="price" property="price"/>
         <result column="status" property="status"/>
         <result column="remarks" property="remarks"/>
         <result column="create_time" property="createTime"/>
@@ -58,5 +59,9 @@
         </if>
 
     </select>
+
+    <update id="updateHouse" parameterType="com.it.entity.Houses">
+         update houses set numbers=#{numbers},owner_id=#{ownerId},address=#{address},type=#{type}, imgs=#{imgs},province=#{province},city=#{city}, county=#{county},sort=#{sort},status=#{status}, remarks=#{remarks},create_time=#{createTime},create_by=#{createBy},update_time=#{updateTime},area=#{area},price=#{price}  where id=#{id}
+    </update>
 
 </mapper>
