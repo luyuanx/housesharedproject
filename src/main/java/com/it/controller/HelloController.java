@@ -20,9 +20,9 @@ public class HelloController {
 
         Date strtodate = null;
 
-//         if(belongCalendar(date,strtodate("2021-6-5 06:00:00"),strtodate("2021-6-5 11:00:00"))){
-//             return username+"中午好";
-//         }
+         if(belongCalendar(date,strtodate("2021-6-5 06:00:00"),strtodate("2021-6-5 11:00:00"))){
+             return username+"下午好";
+         }
         if(belongCalendar(date,strtodate("2021-6-5 12:00:00"),strtodate("2021-6-5 17:00:00"))){
             return username+"下午好";
         }
