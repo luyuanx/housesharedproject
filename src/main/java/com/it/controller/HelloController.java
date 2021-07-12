@@ -15,7 +15,7 @@ public class HelloController {
     @ResponseBody
     @RequestMapping("/hello")
     public String timecheck(String username) {
-
+        //testgit
         Date date = new Date();
 
         Date strtodate = null;
