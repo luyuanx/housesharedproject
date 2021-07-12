@@ -33,7 +33,7 @@ public class ContractController {
     @RequestMapping("addContract")
     public R addContract(@RequestBody Contract contract){
 
-
+        //test
 
         //添加新增记录租赁
         Rentinfo rentinfo=new Rentinfo();

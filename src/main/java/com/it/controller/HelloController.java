@@ -19,9 +19,7 @@ public class HelloController {
         Date date = new Date();
 
         Date strtodate = null;
-//         if(belongCalendar(date,strtodate("2021-6-5 00:00:00"),strtodate("2021-6-5 05:00:00"))){
-//             return username+"早上好";
-//         }
+
         if(belongCalendar(date,strtodate("2021-6-5 06:00:00"),strtodate("2021-6-5 11:00:00"))){
             return username+"中午好";
         }
