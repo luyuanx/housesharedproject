@@ -7,7 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>housesharedproject</name>
     <description>Demo project for Spring Boot</description>
-
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -141,6 +141,7 @@
                 <version>2.3.7.RELEASE</version>
                 <configuration>
                     <mainClass>com.it.HousesharedprojectApplication</mainClass>
+                    <fork>true</fork>
                 </configuration>
                 <executions>
                     <execution>

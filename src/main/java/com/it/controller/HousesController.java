@@ -33,7 +33,7 @@ public class HousesController {
 
     @RequestMapping("/queryHousesIndex")
     public String queryHousesIndex(){
-        return "/houses/housesIndex";
+        return "houses/housesIndex";
     }
 
     @ResponseBody

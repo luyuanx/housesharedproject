@@ -67,7 +67,7 @@ public class OwnController {
     public String updateOwner(Model model, Integer id){
         Owner owner = ownerService.queryOwnerById(id);
         model.addAttribute("Owner", owner);
-        return "/owner/update";
+        return "owner/update";
     }
 
     @ResponseBody
